@@ -15,21 +15,22 @@
                 <li><a href="{{ route('export') }}">Exportar CSV</a></li>
             </ul>
         </nav>
+        <form method="POST" action="{{ route('import') }}" enctype="multipart/form-data">
+            <h3>Import CSV</h3>
+            @csrf
+            <input type="file" name="document_csv">
+            <input type="submit" value="Import CSV">
+        </form>
     </header>
     <main>
-       @forelse ($products as $product)
-           <article>
-                <head>
-                    {{ $product->name }}
-                </head>
-                {{ $product->description }}
-                <footer>
-                    {{ $product->price }}$
-                </footer>
-           </article>
-       @empty
-            <p>No data</p>
-       @endforelse 
+        <h3>Products</h3>
+        <ul>
+            @forelse ($products as $product)
+                <li>{{ $product->name }} > {{ $product->description }} > {{ $product->price }}$ </li>    
+            @empty
+                <p>No data</p>
+            @endforelse
+        </ul> 
     </main>
 </body>
 </html>
